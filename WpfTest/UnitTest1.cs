@@ -4,49 +4,27 @@ using CommunityToolkit.Mvvm.DependencyInjection.DryIoc;
 using CommunityToolkit.Mvvm.DependencyInjection.Microsoft;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Windows;
 using WpfTest.ViewModels;
 using WpfTest.Views;
+using Xunit;
 
 namespace WpfTest
 {
-    [TestClass]
+    
     public class UnitTest1
     {
-        [TestMethod]
+
+        
+        [UIFact]
         public void TestMethod1()
         {
-            
-            DryIocInitialzationExtensions.BuilderService((service) =>
-            {
-                service.Register<ITestz, A>(Reuse.Transient,serviceKey: "A");
-                service.Register<ITestz, A>(Reuse.Transient, serviceKey: "C");
-               
-                service.Register<ITestz, B>(Reuse.Transient, serviceKey: "B");
-                var typez = typeof(ITestz).Assembly.RegisterViewAndViewModel();
-                //service.Register<MockView>(serviceKey: "MockView");
-                //service.Register<MockView>(serviceKey: typeof(MockView).FullName);
-                //service.Register<MockView>();
-                service.PopulateKey(typez, (reg, ser) =>
-                {
-                    return ser.IsKeyedService ? reg.IsRegistered(ser.ServiceType, ser.ServiceKey) : reg.IsRegistered(ser.ServiceType);
 
 
-                });
-
-            }, (provider) => { 
-            
-            });
-            var service = new ServiceCollection();
-             
-            //service.AddKeyedTransient<ITestz, A>("A")
-            //     .AddKeyedTransient<ITestz, A>("C")
-            //.AddSingleton<ServiceCollection>(service)
-            //.AddKeyedTransient<ITestz, B>("B");
-            //var provider=service.BuildServiceProvider();
-            //Ioc.Default.ConfigureServices(provider);
-             
+            var boot = new MockBootstrapper();
+            boot.Run();
             var k = Ioc.Default.GetService<IServiceProviderIsKeyedService>();
             var k2 = Ioc.Default.GetService<IServiceProviderIsService>();
             var kk = k == k2;
@@ -55,13 +33,36 @@ namespace WpfTest
             var a = Ioc.Default.IsRegistrationType("A");
 
             var win = Ioc.Default.GetService<MockView>();
-            //ViewModelLocationProvider.AutoWireViewModelChanged(win, (v, vm) =>
-            //{
-            //    Assert.IsNotNull(v);
-            //    Assert.IsNotNull(vm);
-            //    Assert.IsInstanceOfType<MockViewModel>(vm);
-            //});
-            //var b = Ioc.Default.IsRegistrationType("D");
+            ViewModelLocationProvider.AutoWireViewModelChanged(win, (v, vm) =>
+            {
+                Assert.NotNull(v);
+                Assert.NotNull(vm);
+                Assert.IsType<MockViewModel>(vm);
+            });
+            
+        }
+
+
+        class MockBootstrapper : DryIocInitialzation
+        {
+            protected override void ConfigService(IServiceProvider serviceProvider)
+            {
+               
+            }
+
+            protected override DependencyObject CreateShell(IServiceProvider serviceProvider)
+            {
+                return serviceProvider.GetService<MockView>();
+            }
+
+            protected override void RegisterTypes(DryIoc.IContainer serviceDescriptors)
+            {
+                serviceDescriptors.Register<ITestz, A>(Reuse.Transient, serviceKey: "A");
+                serviceDescriptors.Register<ITestz, A>(Reuse.Transient, serviceKey: "C");
+
+                serviceDescriptors.Register<ITestz, B>(Reuse.Transient, serviceKey: "B");
+                serviceDescriptors.BuilderViewAndViewModelByDryIoc(typeof(ITestz).Assembly);
+            }
         }
     }
 
@@ -93,7 +94,7 @@ namespace WpfTest
 
 namespace WpfTest.Views
 {
-    public class MockView { }
+    public class MockView :FrameworkElement{ }
 }
 
 namespace WpfTest.ViewModels

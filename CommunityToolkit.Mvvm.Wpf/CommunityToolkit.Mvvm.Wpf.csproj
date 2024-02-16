@@ -5,17 +5,21 @@
     <UseWPF>true</UseWPF>
     <LangVersion>12</LangVersion>
     <Description>
+
+      免责申明：只是为了帮助开发人员简化开发流程、提高开发效率，请勿使用此框架做任何违法国家法律的事情。使用者所做任何事情也与本框架的作者无关。
+
+      迁移prism导航,IOC,自动注入Vm,用法跟prism一样.
+
+      链接:https://github.com/PrismLibrary/Prism
+
+      修复必要服务注册
       
-免责申明：只是为了帮助开发人员简化开发流程、提高开发效率，请勿使用此框架做任何违法国家法律的事情。使用者所做任何事情也与本框架的作者无关。
-      
-迁移prism导航,IOC,自动注入Vm,用法跟prism一样.
-      
-链接:https://github.com/PrismLibrary/Prism
+      更改注入模式
     </Description>
     <PackageTags>CommunityToolkit.Mvvm;prism;mvvm;xaml;wpf</PackageTags>
     <PackageProjectUrl>https://github.com/LostAsk/CommunityToolkit.Mvvm.Wpf</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LostAsk/CommunityToolkit.Mvvm.Wpf</RepositoryUrl>
-    <Version>1.0.0.1</Version>
+    <Version>1.0.2</Version>
     <PackageId>Wpf.Navigation.CommunityToolkit.Mvvm</PackageId>
     <PackageReleaseNotes>
       1.迁移prism导航功能而已
@@ -23,7 +27,8 @@
       2.xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:tookit="http://CommunityToolkit.Mvvm.Wpf/"
         tookit:ViewModelLocator.AutoWireViewModel="True"
-    
+      3.修复必要服务注册
+      4.更改注入模式
     
     </PackageReleaseNotes>
     

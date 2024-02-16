@@ -1,27 +1,23 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System.Windows;
 namespace CommunityToolkit.Mvvm.DependencyInjection.Microsoft
 {
-    public static class MicrosoftIocInitialzationExtensions
+    public abstract class MicrosoftIocInitialzation: Initialization
     {
-        public static void BuilderService(Action<IServiceCollection> builder_service, Action<IServiceProvider> config_service)
-        {
-            var service = new ServiceCollection();
-            service.TryAddSingleton<IServiceCollection>(service);
-            service.TryAddSingleton<ISerivceProviderIsKeyedServiceType, ServiceInfo>();
-            service.RegisterRequiredTypes(builder_service);
-            var service_provider= service.BuildServiceProvider();
-            ConfigService(service_provider, config_service);
-
-        }
-        
-        private static void ConfigService(IServiceProvider provider, Action<IServiceProvider> config_service)
-        {
-            provider.ConfigPrismSerivce();
-            config_service?.Invoke(provider);
-        }
-
        
+        protected override IServiceProvider RegisterTypesAndBuilderIServiceProvider(IServiceCollection serviceDescriptors)
+        {
+            serviceDescriptors.TryAddSingleton(serviceDescriptors);
+            serviceDescriptors.TryAddSingleton<ISerivceProviderIsKeyedServiceType, ServiceInfo>();
+            serviceDescriptors.TryAddSingleton<IServiceProviderIsKeyedService, ServiceInfo>();
+            serviceDescriptors.TryAddSingleton<IServiceProviderIsService, ServiceInfo>();
+            RegisterTypes(serviceDescriptors);
+            return serviceDescriptors.BuildServiceProvider();
+        }
+
+        protected abstract void RegisterTypes(IServiceCollection serviceDescriptors);
+
 
         private class ServiceInfo : ISerivceProviderIsKeyedServiceType
         {

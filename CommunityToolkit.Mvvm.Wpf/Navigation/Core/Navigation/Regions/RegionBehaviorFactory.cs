@@ -72,7 +72,7 @@ namespace CommunityToolkit.Mvvm.Navigation.Regions
                     string.Format(Thread.CurrentThread.CurrentCulture, Resources.TypeWithKeyNotRegistered, key), nameof(key));
             }
 
-            return _container.GetKeyedService<IRegionBehavior>(_registeredBehaviors[key]);
+            return (IRegionBehavior) _container.GetService(_registeredBehaviors[key]);
         }
 
 

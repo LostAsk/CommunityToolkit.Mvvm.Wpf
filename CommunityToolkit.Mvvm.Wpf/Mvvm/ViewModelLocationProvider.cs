@@ -19,7 +19,7 @@ namespace CommunityToolkit.Mvvm
 
     // Documentation on using the MVVM pattern is at http://go.microsoft.com/fwlink/?LinkID=288814&clcid=0x409
 
-    internal static class ViewModelLocationProvider
+    public static class ViewModelLocationProvider
     {
         /// <summary>
         /// Resets the ViewModelLocationProvider for Unit Testing Purposes.

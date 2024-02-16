@@ -6,28 +6,34 @@
 
 #### 注册服务/配置服务
 ``` CSharp
-//MicrosoftIocInitialzationExtensions
-//根据不同的IOC实现包进行 注册 配置
-DryIocInitialzationExtensions.BuilderService((service) =>
-{
-    service.Register<ITestz, A>(Reuse.Transient,serviceKey: "A");
-    service.Register<ITestz, A>(Reuse.Transient, serviceKey: "C");
-   
-    service.Register<ITestz, B>(Reuse.Transient, serviceKey: "B");
-    var typez = typeof(ITestz).Assembly.RegisterViewAndViewModel();
-    //service.Register<MockView>(serviceKey: "MockView");
-    //service.Register<MockView>(serviceKey: typeof(MockView).FullName);
-    //service.Register<MockView>();
-    service.PopulateKey(typez, (reg, ser) =>
-    {
-        return ser.IsKeyedService ? reg.IsRegistered(ser.ServiceType, ser.ServiceKey) : reg.IsRegistered(ser.ServiceType);
+ public partial class App : Application
+ {
+     protected override void OnStartup(StartupEventArgs e)
+     {
+         base.OnStartup(e);
+         var boot = new MockBootstrapper();
+         boot.Run();
+     }
 
+     class MockBootstrapper : DryIocInitialzation
+     {
+         protected override void ConfigService(IServiceProvider serviceProvider)
+         {
 
-    });
+         }
 
-}, (provider) => { 
+         protected override DependencyObject CreateShell(IServiceProvider serviceProvider)
+         {
+             return serviceProvider.GetService<MainWindow>();
+         }
 
-});
+         protected override void RegisterTypes(DryIoc.IContainer serviceDescriptors)
+         {
+             
+             serviceDescriptors.BuilderViewAndViewModelByDryIoc(typeof(App).Assembly);
+         }
+     }
+ }
 ```
 
 ``` xml

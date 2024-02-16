@@ -1,0 +1,25 @@
+﻿<Window
+    x:Class="WpfTestApp.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:WpfTestApp.Views"
+    xmlns:local_vm="clr-namespace:WpfTestApp.ViewModels"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tookit="http://CommunityToolkit.Mvvm.Wpf/"
+    Title="MainWindow"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance Type=local_vm:MainWindowViewModel}"
+    tookit:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded" SourceObject="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
+            <i:InvokeCommandAction Command="{Binding LoadooCommand}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <ContentControl tookit:RegionManager.RegionContext="阿斯蒂芬" tookit:RegionManager.RegionName="user" />
+    </Grid>
+</Window>
