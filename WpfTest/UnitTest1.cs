@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.DependencyInjection.DryIoc;
+using CommunityToolkit.Mvvm.DependencyInjection.Microsoft;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace WpfTest
         [TestMethod]
         public void TestMethod1()
         {
+            
             DryIocInitialzationExtensions.BuilderService((service) =>
             {
                 service.Register<ITestz, A>(Reuse.Transient,serviceKey: "A");
@@ -33,7 +35,9 @@ namespace WpfTest
 
                 });
 
-            }, null);
+            }, (provider) => { 
+            
+            });
             var service = new ServiceCollection();
              
             //service.AddKeyedTransient<ITestz, A>("A")
