@@ -31,13 +31,22 @@
       4.更改注入模式
     
     </PackageReleaseNotes>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+
+ 
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
+ 
+    <PackageLicenseFile>License.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="D:\私有\CommunityToolkit.Mvvm\CommunityToolkit.Mvvm\.editorconfig" />
+    <None Include="..\License.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
+ 
+ 
 
   
 
