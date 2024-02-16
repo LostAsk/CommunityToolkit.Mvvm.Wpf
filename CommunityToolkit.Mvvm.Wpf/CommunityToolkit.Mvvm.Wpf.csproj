@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>net462;net47;net6.0-windows</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <LangVersion>12</LangVersion>
+    <Description>
+      免责申明：只是为了帮助开发人员简化开发流程、提高开发效率，请勿使用此框架做任何违法国家法律的事情。使用者所做任何事情也与本框架的作者无关。
+      &#xA;迁移prism导航,IOC,自动注入Vm,用法跟prism一样.
+      &#xA;链接:https://github.com/PrismLibrary/Prism
+    </Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="D:\私有\CommunityToolkit.Mvvm\CommunityToolkit.Mvvm\.editorconfig" />
+  </ItemGroup>
+
+  
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+   
+  </ItemGroup>
+
+</Project>
