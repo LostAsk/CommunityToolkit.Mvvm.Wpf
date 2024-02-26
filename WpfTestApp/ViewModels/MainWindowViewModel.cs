@@ -28,6 +28,7 @@ namespace WpfTestApp.ViewModels
         [RelayCommand]
         void Loadoo(object par)
         {
+            
             var view = Ioc.Default.GetService<TestControlA>();
             Ioc.Default.GetService<IRegionManager>().AddToRegion("user", view);
             //ServiceProvider.Default.GetService<IRegionManager>().Regions["user"].Activate(view);

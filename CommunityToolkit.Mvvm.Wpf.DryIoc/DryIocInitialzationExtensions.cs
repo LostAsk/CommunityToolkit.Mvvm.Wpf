@@ -14,9 +14,14 @@ namespace CommunityToolkit.Mvvm.DependencyInjection.DryIoc
     {
         protected IContainer Container { get;private set; }
 
+
+        protected virtual IContainer CreateContainer()
+        {
+            return  new Container();
+        }
         protected override IServiceProvider RegisterTypesAndBuilderIServiceProvider(IServiceCollection serviceDescriptors)
         {
-            Container = new Container();
+            Container = CreateContainer();
             Container.RegisterInstance<IContainer>(Container);
             Container.Register<ServiceInfo>(Reuse.Singleton);
             Container.RegisterDelegate<ISerivceProviderIsKeyedServiceType>((r) => r.Resolve<ServiceInfo>(), Reuse.Singleton);

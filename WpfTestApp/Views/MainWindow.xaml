@@ -15,7 +15,8 @@
     tookit:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded" SourceObject="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}}">
+        <i:EventTrigger EventName="Loaded">
+
             <i:InvokeCommandAction Command="{Binding LoadooCommand}" PassEventArgsToCommand="True" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
