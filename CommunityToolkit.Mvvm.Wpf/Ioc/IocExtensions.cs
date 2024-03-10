@@ -14,7 +14,7 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
         {
             foreach(var viewtype in assembly.GetTypes())
             {
-                if (viewtype.FullName.Contains(".Views."))
+                if (viewtype.FullName.Contains(".Views.")&&viewtype.IsClass&&!viewtype.IsAbstract&&!viewtype.IsGenericType)
                 {
                   
                     yield return new ServiceDescriptor(viewtype, viewtype, ServiceLifetime.Transient);
