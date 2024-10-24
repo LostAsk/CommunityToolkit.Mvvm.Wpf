@@ -100,7 +100,7 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
                 RegionManager.UpdateRegions();
                 InitializeShell(window);
             }
-            OnInitialized();
+            //OnInitialized();
              
         }
 
