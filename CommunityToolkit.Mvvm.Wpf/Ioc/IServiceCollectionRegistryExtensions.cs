@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,10 +45,10 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
         //
         //   TViewModel:
         //     The ViewModel to use as the DataContext for the dialog
-        //public static void RegisterDialog<TView, TViewModel>(this IServiceCollection containerRegistry, string name = null) where TViewModel : IDialogAware
-        //{
-        //    containerRegistry.RegisterForNavigation<TView, TViewModel>(name);
-        //}
+        public static void RegisterDialog<TView, TViewModel>(this IServiceCollection containerRegistry, string name = null) where TViewModel : IDialogAware
+        {
+            containerRegistry.RegisterForNavigation<TView, TViewModel>(name);
+        }
 
         //
         // 摘要:
@@ -59,10 +61,10 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
         // 类型参数:
         //   TWindow:
         //     The Type of the Window class that will be used to host dialogs in the IDialogService
-        //public static void RegisterDialogWindow<TWindow>(this IContainerRegistry containerRegistry) where TWindow : IDialogWindow
-        //{
-        //    containerRegistry.Register(typeof(IDialogWindow), typeof(TWindow));
-        //}
+        public static void RegisterDialogWindow<TWindow>(this IServiceCollection containerRegistry) where TWindow : IDialogWindow
+        {
+            containerRegistry.AddTransient(typeof(IDialogWindow), typeof(TWindow));
+        }
 
         //
         // 摘要:
@@ -132,6 +134,18 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
 
             ViewModelLocationProvider.Register(viewType.ToString(), typeof(TViewModel));
             containerRegistry.RegisterForNavigation(viewType, name);
+        }
+
+
+
+        /// <summary>
+        /// 注册dialog服务
+        /// </summary>
+        /// <param name="serviceDescriptors"></param>
+        public static void AddDialog(this IServiceCollection serviceDescriptors)
+        {
+            serviceDescriptors.TryAddSingleton<IDialogService, DialogService>();
+            serviceDescriptors.TryAddTransient<IDialogWindow, DialogWindow>();
         }
     }
 }

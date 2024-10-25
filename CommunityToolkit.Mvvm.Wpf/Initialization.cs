@@ -70,9 +70,10 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
             serviceDescriptors.TryAddSingleton<SelectorRegionAdapter>();
             serviceDescriptors.TryAddSingleton<ItemsControlRegionAdapter>();
             serviceDescriptors.TryAddSingleton<ContentControlRegionAdapter>();
-           
-        
-        
+            serviceDescriptors.AddDialog();
+
+
+
         }
 
         private void RegisterRequiredTypesBehavior(IServiceCollection serviceDescriptors)
