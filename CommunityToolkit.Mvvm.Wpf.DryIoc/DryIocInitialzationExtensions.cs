@@ -2,6 +2,7 @@
 using DryIoc.Microsoft.DependencyInjection;
 using Example;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,56 +22,21 @@ namespace CommunityToolkit.Mvvm.DependencyInjection.DryIoc
         }
         protected override IServiceProvider RegisterTypesAndBuilderIServiceProvider(IServiceCollection serviceDescriptors)
         {
+            AddISerivceProviderIsKeyedServiceType(serviceDescriptors);
             Container = CreateContainer();
             Container.RegisterInstance<IContainer>(Container);
-            Container.Register<ServiceInfo>(Reuse.Singleton);
-            Container.RegisterDelegate<ISerivceProviderIsKeyedServiceType>((r) => r.Resolve<ServiceInfo>(), Reuse.Singleton);
-            Container.RegisterDelegate<IServiceProviderIsService>((r) => r.Resolve<ServiceInfo>(), Reuse.Singleton);
-            Container.RegisterDelegate<IServiceProviderIsKeyedService>((r) => r.Resolve<ServiceInfo>(), Reuse.Singleton);
             Container.PopulateKey(serviceDescriptors);
             RegisterTypes(Container);
             return Container.BuildServiceProvider();
         }
         protected abstract void RegisterTypes(IContainer serviceDescriptors);
 
-        private class ServiceInfo : ISerivceProviderIsKeyedServiceType
+        protected void AddISerivceProviderIsKeyedServiceType(IServiceCollection serviceDescriptors)
         {
-            private IContainer Instance;
-            public ServiceInfo(IContainer services)
-            {
-                Instance = services;
-            }
-            public Type GetRegistrationType(string key)
-            {
-                string key2 = key;
-                ServiceRegistrationInfo serviceRegistrationInfo = (from r in Instance.GetServiceRegistrations()
-                                                                   where key2.Equals(r.OptionalServiceKey?.ToString(), StringComparison.Ordinal)
-                                                                   select r).FirstOrDefault();
-                if (serviceRegistrationInfo.OptionalServiceKey == null)
-                {
-                    serviceRegistrationInfo = (from r in Instance.GetServiceRegistrations()
-                                               where key2.Equals(r.ImplementationType?.Name, StringComparison.Ordinal)
-                                               select r).FirstOrDefault();
-                }
-
-                return serviceRegistrationInfo.ImplementationType;
-
-            }
-
-            public bool IsKeyedService(Type serviceType, object serviceKey)
-            {
-                if (!Instance.IsRegistered(serviceType, serviceKey))
-                {
-                    return Instance.IsRegistered(serviceType, serviceKey, FactoryType.Wrapper);
-                }
-
-                return true;
-            }
-
-            public bool IsService(Type serviceType)
-            {
-                return Instance.IsRegistered(serviceType);
-            }
+            serviceDescriptors.AddSingleton<ServiceInfo>();
+            serviceDescriptors.TryAddSingleton<ISerivceProviderIsKeyedServiceType>(p => p.GetService<ServiceInfo>());
+            serviceDescriptors.TryAddSingleton<IServiceProviderIsService>(p => p.GetService<ServiceInfo>());
+            serviceDescriptors.TryAddSingleton<IServiceProviderIsKeyedService>(p => p.GetService<ServiceInfo>());
         }
     }
 

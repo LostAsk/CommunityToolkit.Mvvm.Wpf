@@ -19,7 +19,7 @@
     <PackageTags>CommunityToolkit.Mvvm;prism;mvvm;xaml;wpf</PackageTags>
     <PackageProjectUrl>https://github.com/LostAsk/CommunityToolkit.Mvvm.Wpf</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LostAsk/CommunityToolkit.Mvvm.Wpf</RepositoryUrl>
-    <Version>1.0.5</Version>
+    <Version>1.0.6</Version>
     <PackageId>Wpf.Navigation.CommunityToolkit.Mvvm</PackageId>
     <PackageReleaseNotes>
       1.迁移prism导航功能而已
@@ -29,7 +29,7 @@
         tookit:ViewModelLocator.AutoWireViewModel="True"
       3.修复必要服务注册
       4.更改注入模式
-    
+      5.添加导航注册扩展
     </PackageReleaseNotes>
 
  
@@ -52,7 +52,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.2" />
    
   </ItemGroup>
 
