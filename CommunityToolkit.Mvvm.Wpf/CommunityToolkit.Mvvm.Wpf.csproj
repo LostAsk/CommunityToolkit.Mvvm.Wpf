@@ -19,7 +19,7 @@
     <PackageTags>CommunityToolkit.Mvvm;prism;mvvm;xaml;wpf</PackageTags>
     <PackageProjectUrl>https://github.com/LostAsk/CommunityToolkit.Mvvm.Wpf</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LostAsk/CommunityToolkit.Mvvm.Wpf</RepositoryUrl>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     <PackageId>Wpf.Navigation.CommunityToolkit.Mvvm</PackageId>
     <PackageReleaseNotes>
       1.迁移prism导航功能而已
