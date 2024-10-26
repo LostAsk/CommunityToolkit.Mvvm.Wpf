@@ -6,10 +6,14 @@
 	  <LangVersion>12</LangVersion>
 	  <Version>1.0.7</Version>
 	  <Description>
-		  &#xA;使用DryIoc实现注入
-		  &#xA;免责申明：只是为了帮助开发人员简化开发流程、提高开发效率，请勿使用此框架做任何违法国家法律的事情。使用者所做任何事情也与本框架的作者无关。
-		  &#xA;迁移prism导航,IOC,自动注入Vm,用法跟prism一样.
-		  &#xA;链接:https://github.com/PrismLibrary/Prism
+		  
+使用DryIoc实现注入
+		  
+免责申明：只是为了帮助开发人员简化开发流程、提高开发效率，请勿使用此框架做任何违法国家法律的事情。使用者所做任何事情也与本框架的作者无关。
+		  
+迁移prism导航,IOC,自动注入Vm,用法跟prism一样.
+		  
+链接:https://github.com/PrismLibrary/Prism
 	  </Description>
 	  <PackageTags>CommunityToolkit.Mvvm;prism;mvvm;xaml;wpf</PackageTags>
 	  <PackageProjectUrl>https://github.com/LostAsk/CommunityToolkit.Mvvm.Wpf</PackageProjectUrl>
@@ -30,11 +34,11 @@
 		</None>
 	</ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DryIoc.Microsoft.DependencyInjection" Version="6.2.0" />
+    <PackageReference Include="DryIoc.Microsoft.DependencyInjection" Version="8.0.0-preview-02" />
   </ItemGroup>
 
   <ItemGroup>
-	  <ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf\CommunityToolkit.Mvvm.Wpf.csproj" >
+	  <ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf\CommunityToolkit.Mvvm.Wpf.csproj">
 		  <Version>1.0.5</Version>
 		  <IncludeAssets>All</IncludeAssets>
 		  <ExcludeAssets>None</ExcludeAssets>

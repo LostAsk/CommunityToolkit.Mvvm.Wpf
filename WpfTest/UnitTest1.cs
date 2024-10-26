@@ -61,7 +61,7 @@ namespace WpfTest
                 serviceDescriptors.Register<ITestz, A>(Reuse.Transient, serviceKey: "C");
 
                 serviceDescriptors.Register<ITestz, B>(Reuse.Transient, serviceKey: "B");
-                serviceDescriptors.BuilderViewAndViewModelByDryIoc(typeof(ITestz).Assembly);
+                //serviceDescriptors.BuilderViewAndViewModelByDryIoc(typeof(ITestz).Assembly);
             }
         }
     }

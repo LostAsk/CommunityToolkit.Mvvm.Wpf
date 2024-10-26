@@ -15,9 +15,15 @@ namespace WpfTestApp.ViewModels
 {
     internal partial class MainWindowViewModel: ObservableObject
     {
-        public MainWindowViewModel()
+        public MainWindowViewModel(IServiceProvider serviceProvider)
         {
-
+            var p = serviceProvider.GetService<IKeyedServiceProvider>();
+            var k= serviceProvider.GetService<IServiceProviderIsKeyedService>();
+            var k1 = serviceProvider.GetService<IServiceProviderIsService>();
+            var k2 = serviceProvider.GetService<ISerivceProviderIsKeyedServiceType>();
+            var k3 = serviceProvider.GetService<IServiceProvider>();
+            var jjj = k3.GetKeyedService<TestControlA>("www");
+            var jjj2 = k3.GetKeyedService<TestControlA>("TestControlA");
         }
         /// <summary>
         /// 标题

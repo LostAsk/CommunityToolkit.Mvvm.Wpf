@@ -30,12 +30,13 @@ namespace WpfTestApp
 
             protected override DependencyObject CreateShell(IServiceProvider serviceProvider)
             {
-                return serviceProvider.GetService<MainWindow>();
+                var mainwindow= serviceProvider.GetService<MainWindow>();
+                return mainwindow;
             }
 
             protected override void RegisterTypes(DryIoc.IContainer serviceDescriptors)
             {
-                
+                serviceDescriptors.Register<TestControlA>(Reuse.Transient, serviceKey: "www");
                 serviceDescriptors.BuilderViewAndViewModelByDryIoc(typeof(App).Assembly);
             }
         }
