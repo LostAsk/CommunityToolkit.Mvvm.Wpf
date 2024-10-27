@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.Helper;
+using CommunityToolkit.Mvvm.Modularity;
 using CommunityToolkit.Mvvm.Navigation.Regions;
 using CommunityToolkit.Mvvm.Navigation.Regions.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,8 +72,15 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
             serviceDescriptors.TryAddSingleton<ItemsControlRegionAdapter>();
             serviceDescriptors.TryAddSingleton<ContentControlRegionAdapter>();
             serviceDescriptors.AddDialog();
+            var module_manger = new ModuleManager();
+            //添加模块管理器
+            serviceDescriptors.TryAddSingleton<ModuleManager>(module_manger);
+            ConfigModule(module_manger);
+            module_manger.ConfigModuleService(serviceDescriptors);
+        }
 
-
+        protected virtual void ConfigModule(ModuleManager moduleManager)
+        {
 
         }
 
@@ -101,6 +109,8 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
                 RegionManager.UpdateRegions();
                 InitializeShell(window);
             }
+            serviceProvider.GetService<ModuleManager>().OnInitialized(serviceProvider);
+
             //OnInitialized();
              
         }
