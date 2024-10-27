@@ -47,7 +47,10 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
 
         protected abstract IServiceProvider RegisterTypesAndBuilderIServiceProvider(IServiceCollection serviceDescriptors);
 
-        protected abstract void ConfigService(IServiceProvider serviceProvider);
+        protected virtual void ConfigService(IServiceProvider serviceProvider)
+        {
+            serviceProvider.UseModule();
+        }
         private void ConfigurePrismService(IServiceProvider serviceProvider)
         {
           
@@ -104,13 +107,9 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
             var window = CreateShell(serviceProvider);
             if (window != null)
             {
-                MvvmHelpers.AutowireViewModel(viewOrViewModel: window);
-                RegionManager.SetRegionManager(window, serviceProvider.GetService<IRegionManager>());
-                RegionManager.UpdateRegions();
+                serviceProvider.UseRegion(window);
                 InitializeShell(window);
             }
-            serviceProvider.GetService<ModuleManager>().OnInitialized(serviceProvider);
-
             //OnInitialized();
              
         }

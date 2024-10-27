@@ -6,7 +6,7 @@
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Version>1.0.8</Version>
+		<Version>1.0.9</Version>
 		<Description>
 			
 使用原生的微软实现注入
@@ -40,9 +40,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf\CommunityToolkit.Mvvm.Wpf.csproj"> 
-		  <Version>1.0.5</Version>
+		  <!--<Version>1.0.5</Version>
 		  <IncludeAssets>All</IncludeAssets>
-		  <ExcludeAssets>None</ExcludeAssets>
+		  <ExcludeAssets>None</ExcludeAssets>-->
 	  </ProjectReference>
 	</ItemGroup>
 </Project>
