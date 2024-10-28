@@ -74,27 +74,26 @@ namespace WpfTest
             }
             
 
-            protected override void RegisterTypes(DryIoc.IContainer serviceDescriptors)
+            protected override void RegisterTypes(DryIoc.IContainer container,IServiceCollection serviceDescriptors)
             {
-                serviceDescriptors.Register<ITestz, A>(Reuse.Transient, serviceKey: "A");
-                serviceDescriptors.Register<ITestz, A>(Reuse.Transient, serviceKey: "C");
+                container.Register<ITestz, A>(Reuse.Transient, serviceKey: "A");
+                container.Register<ITestz, A>(Reuse.Transient, serviceKey: "C");
 
-                serviceDescriptors.Register<ITestz, B>(Reuse.Transient, serviceKey: "B");
-                serviceDescriptors.Register<TestBModule>();
-                serviceDescriptors.Register<TestCModule>();
-                AddModule(null, (s, manger) =>
+                container.Register<ITestz, B>(Reuse.Transient, serviceKey: "B");
+ 
+                AddModule(serviceDescriptors, (s, manger) =>
                 {
                     manger.AddModule<TestBModule>();
                     manger.AddModule<TestCModule>();
                     manger.BuilderModule = (s, t) =>
                     {
-                        return serviceDescriptors.Resolve(t) as IModule;
+                        return container.Resolve(t) as IModule;
                     };
                     manger.RegisterTypes = ( t) =>
                     {
                         foreach(var i in t)
                         {
-                            serviceDescriptors.Register(i,i,Reuse.Singleton );
+                            container.Register(i,i,Reuse.Singleton );
                         }
                     };
                 });

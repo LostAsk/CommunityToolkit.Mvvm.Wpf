@@ -4,7 +4,7 @@
 	  <TargetFrameworks>net462;net47;net6.0-windows</TargetFrameworks>
 	  <UseWPF>true</UseWPF>
 	  <LangVersion>12</LangVersion>
-	  <Version>1.0.10</Version>
+	  <Version>1.0.12</Version>
 	  <Description>
 		  
 使用DryIoc实现注入

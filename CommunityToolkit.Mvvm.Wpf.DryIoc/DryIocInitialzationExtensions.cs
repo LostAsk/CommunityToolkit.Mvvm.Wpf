@@ -13,15 +13,22 @@ namespace CommunityToolkit.Mvvm.DependencyInjection.DryIoc
 {
     public abstract class DryIocInitialzation : Initialization
     {
+        protected virtual IContainer BuilderContainer()
+        {
+            return new Container(DryIocAdapter.MicrosoftDependencyInjectionRules);
+        }
+
         protected override IServiceProvider RegisterTypesAndBuilderIServiceProvider(IServiceCollection serviceDescriptors)
         {
             AddISerivceProviderIsKeyedServiceType(serviceDescriptors);
-            var factory = new DryIocServiceProviderFactory();
+            var container = BuilderContainer();
+            RegisterTypes(container, serviceDescriptors);
+            var factory = new DryIocServiceProviderFactory(container);
             var ServiceProvider = factory.CreateBuilder(serviceDescriptors);
-            RegisterTypes(ServiceProvider.Container);
+       
             return ServiceProvider;
         }
-        protected abstract void RegisterTypes(IContainer serviceDescriptors);
+        protected abstract void RegisterTypes(IContainer container,IServiceCollection serviceDescriptors);
 
         protected void AddISerivceProviderIsKeyedServiceType(IServiceCollection serviceDescriptors)
         {
