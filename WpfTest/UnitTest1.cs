@@ -13,31 +13,12 @@ using WpfTest.Views;
 using Xunit;
 
 namespace WpfTest
-{// Item 定义
-    public class Item
-    {
-        // 条目名称
-        public string Name { get; private set; }
-        // 依赖项
-        public Item[] Dependencies { get; set; }
-
-        public Item(string name, params Item[] dependencies)
-        {
-            Name = name;
-            Dependencies = dependencies;
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
+{
+   
     public class UnitTest1
     {
-
-        
-        [UIFact]
+         
+        [WpfFact]
         public void TestMethod1()
         {
             var moduleA = new Item("Module A");
@@ -91,14 +72,7 @@ namespace WpfTest
             {
                 return serviceProvider.GetService<MockView>();
             }
-            protected override void ConfigModule(ModuleManager moduleManager)
-            {
-                moduleManager.AddModule<TestBModule>();
-
-                moduleManager.AddModule<TestCModule>();
-                //moduleManager.AddModule<TestAModule>();
-                base.ConfigModule(moduleManager);
-            }
+            
 
             protected override void RegisterTypes(DryIoc.IContainer serviceDescriptors)
             {
@@ -106,6 +80,27 @@ namespace WpfTest
                 serviceDescriptors.Register<ITestz, A>(Reuse.Transient, serviceKey: "C");
 
                 serviceDescriptors.Register<ITestz, B>(Reuse.Transient, serviceKey: "B");
+                serviceDescriptors.Register<TestBModule>();
+                serviceDescriptors.Register<TestCModule>();
+                AddModule(null, (s, manger) =>
+                {
+                    manger.AddModule<TestBModule>();
+                    manger.AddModule<TestCModule>();
+                    manger.BuilderModule = (s, t) =>
+                    {
+                        return serviceDescriptors.Resolve(t) as IModule;
+                    };
+                    manger.RegisterTypes = ( t) =>
+                    {
+                        foreach(var i in t)
+                        {
+                            serviceDescriptors.Register(i,i,Reuse.Singleton );
+                        }
+                    };
+                });
+
+                
+                
                 //serviceDescriptors.BuilderViewAndViewModelByDryIoc(typeof(ITestz).Assembly);
             }
         }
@@ -239,6 +234,25 @@ namespace WpfTest
         public void OnInitialized(IServiceProvider serviceProvider)
         {
 
+        }
+    }
+    // Item 定义
+    public class Item
+    {
+        // 条目名称
+        public string Name { get; private set; }
+        // 依赖项
+        public Item[] Dependencies { get; set; }
+
+        public Item(string name, params Item[] dependencies)
+        {
+            Name = name;
+            Dependencies = dependencies;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

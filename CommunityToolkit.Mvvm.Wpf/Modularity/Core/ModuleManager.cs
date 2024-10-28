@@ -1,11 +1,7 @@
-﻿using CommunityToolkit.Mvvm.Modularity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommunityToolkit.Mvvm.Modularity
 {
@@ -13,6 +9,10 @@ namespace CommunityToolkit.Mvvm.Modularity
     {
         private IReadOnlyCollection<DependencyEntry> DependencyEntries => DependencyEntry.AllDependencies;
         private IList<DependencyEntry> Sort { get; set; }
+
+        public Func<IServiceCollection, Type, IModule> BuilderModule { get; set; } = (s, t) => Activator.CreateInstance(t) as IModule;
+
+        public Action<Type[]> RegisterTypes { get; set; }
         public ModuleManager() {
 
         }
@@ -30,13 +30,14 @@ namespace CommunityToolkit.Mvvm.Modularity
         internal void ConfigModuleService(IServiceCollection serviceDescriptors)
         {
             Sort = DAGSortHelper.DAGSort(DependencyEntries, p => p.Dependencys);
+            RegisterTypes?.Invoke(Sort.Select(p => p.Module).ToArray());
             foreach (var dep in Sort)
             {
-                var obj = Activator.CreateInstance(dep.Module) as IModule;
+                var obj = BuilderModule(serviceDescriptors,dep.Module);
                 if (obj != null)
                 {
                     obj.ConfigService(serviceDescriptors);
-                    serviceDescriptors.AddSingleton(dep.Module, obj);
+                    serviceDescriptors?.AddSingleton(dep.Module, obj);
                 }
             }
         }

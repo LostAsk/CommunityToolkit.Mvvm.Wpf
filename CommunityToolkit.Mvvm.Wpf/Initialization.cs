@@ -60,6 +60,8 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
             ConfigureRegionAdapterMappings(regionAdapterMappings);
 
         }
+
+        protected ModuleManager ModuleManager { get;private set; }
         private void RegisterRequiredTypes(IServiceCollection serviceDescriptors)
         {
            
@@ -75,16 +77,19 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
             serviceDescriptors.TryAddSingleton<ItemsControlRegionAdapter>();
             serviceDescriptors.TryAddSingleton<ContentControlRegionAdapter>();
             serviceDescriptors.AddDialog();
-            var module_manger = new ModuleManager();
+            ModuleManager = new ModuleManager();
             //添加模块管理器
-            serviceDescriptors.TryAddSingleton<ModuleManager>(module_manger);
-            ConfigModule(module_manger);
-            module_manger.ConfigModuleService(serviceDescriptors);
+            serviceDescriptors.TryAddSingleton<ModuleManager>(ModuleManager);
+            
+         
         }
 
-        protected virtual void ConfigModule(ModuleManager moduleManager)
-        {
+        
 
+        protected void AddModule(IServiceCollection serviceDescriptors,Action<IServiceCollection, ModuleManager> builder)
+        {
+            builder(serviceDescriptors, ModuleManager);
+            ModuleManager.ConfigModuleService(serviceDescriptors);
         }
 
         private void RegisterRequiredTypesBehavior(IServiceCollection serviceDescriptors)
