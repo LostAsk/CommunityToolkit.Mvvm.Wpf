@@ -31,6 +31,7 @@
 		<ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf.DryIoc\CommunityToolkit.Mvvm.Wpf.DryIoc.csproj" />
 		<ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf.Microsoft\CommunityToolkit.Mvvm.Wpf.Microsoft.csproj" />
 		<ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf\CommunityToolkit.Mvvm.Wpf.csproj" />
+		<ProjectReference Include="..\DependencyInjection.MvvmView.Generator\DependencyInjection.MvvmView.Generator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
 	</ItemGroup>
 
 </Project>

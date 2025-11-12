@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.DependencyInjection;
 using CommunityToolkit.Mvvm.DependencyInjection.DryIoc;
 using CommunityToolkit.Mvvm.DependencyInjection.Microsoft;
 using CommunityToolkit.Mvvm.Modularity;
+using CommunityToolkit.Mvvm.Wpf.Microsoft;
 using DryIoc;
 using DryIoc.Microsoft.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +42,7 @@ namespace WpfTest
             //Console.ReadLine();
 
 
-            var boot = new MockBootstrapper();
+            var boot = new MicrosoftMockBootstrapper();
             boot.Run();
             var k = Ioc.Default.GetService<IServiceProviderIsKeyedService>();
             var k2 = Ioc.Default.GetService<IServiceProviderIsService>();
@@ -55,11 +56,38 @@ namespace WpfTest
             {
                 Assert.NotNull(v);
                 Assert.NotNull(vm);
-                Assert.IsType<MockViewModel>(vm);
+                Assert.IsType<TestVM>(vm);
             });
             
         }
 
+
+        class MicrosoftMockBootstrapper : MicrosoftIocInitialzation
+        {
+            protected override void ConfigureViewModelLocator()
+            {
+                VMLocationProvider.Instance.SetServiceProvider(Ioc.Default);
+                VMLocationProvider.Instance
+                    .SetDefaultViewModelFactory(ServiceCollectionViewBindVmExtensions.UseWpfTestDefaultViewModelFatory)
+                    .SetDefaultViewFactory(ServiceCollectionViewBindVmExtensions.UseWpfTestDefaultViewFatory)
+                    ;
+
+                ViewModelLocationProvider.SetDefaultViewModelFactory((view, type) =>
+                {
+                    return ServiceCollectionViewBindVmExtensions.UseWpfTestDefaultViewModelFatory(view, Ioc.Default);
+                });
+            }
+
+            protected override DependencyObject CreateShell(IServiceProvider serviceProvider)
+            {
+                return serviceProvider.GetService<MockView>();
+            }
+
+            protected override void RegisterTypes(IServiceCollection serviceDescriptors)
+            {
+                serviceDescriptors.AddWpfTestViewAndViewModel();
+            }
+        }
 
         class MockBootstrapper : DryIocInitialzation
         {
@@ -157,6 +185,13 @@ namespace WpfTest
             }
         }
     }
+
+    [ViewBindVm( ServiceLifetime.Transient,typeof(MockView),"aa")]
+    public class TestVM
+    {
+
+    }
+
 
     public interface ITestz
     {

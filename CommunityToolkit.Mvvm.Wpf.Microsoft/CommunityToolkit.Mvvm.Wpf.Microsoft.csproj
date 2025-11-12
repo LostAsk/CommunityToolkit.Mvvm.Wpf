@@ -2,11 +2,17 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net462;net47;net6.0-windows</TargetFrameworks>
-		<LangVersion>12</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Version>1.0.10</Version>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<Nullable>enable</Nullable>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		
+		<Version>1.0.11</Version>
+		
 		<Description>
 			
 使用原生的微软实现注入
@@ -40,10 +46,12 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf\CommunityToolkit.Mvvm.Wpf.csproj"> 
-		  <!--<Version>1.0.5</Version>
-		  <IncludeAssets>All</IncludeAssets>
-		  <ExcludeAssets>None</ExcludeAssets>-->
+		 
 	  </ProjectReference>
+		<ProjectReference Include="..\DependencyInjection.MvvmView.Generator\DependencyInjection.MvvmView.Generator.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="$(BaseOutputPath)\$(Configuration)\SourceGen\**" PackagePath="analyzers\dotnet\cs" Pack="true" Visible="false" />
 	</ItemGroup>
 </Project>
 
