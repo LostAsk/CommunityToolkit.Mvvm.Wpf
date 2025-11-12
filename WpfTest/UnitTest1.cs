@@ -186,7 +186,7 @@ namespace WpfTest
         }
     }
 
-    [ViewBindVm( ServiceLifetime.Transient,typeof(MockView),"aa")]
+    [ViewBindVm( ServiceLifetime.Transient,typeof(MockView))]
     public class TestVM
     {
 

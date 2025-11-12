@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6-windows</TargetFrameworks>
+		<TargetFrameworks>net6-windows;</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<LangVersion>12</LangVersion>
