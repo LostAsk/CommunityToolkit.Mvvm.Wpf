@@ -5,17 +5,16 @@
 		<TargetFramework>net472</TargetFramework>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<UseWPF>true</UseWPF>
-		<LangVersion>12.0</LangVersion>
+		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
 	</ItemGroup>
 
-
-
 	<ItemGroup>
-		<ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf.DryIoc\CommunityToolkit.Mvvm.Wpf.DryIoc.csproj" />
+	  <ProjectReference Include="..\CommunityToolkit.Mvvm.Wpf.Microsoft\CommunityToolkit.Mvvm.Wpf.Microsoft.csproj" />
+	  <ProjectReference Include="..\DependencyInjection.MvvmView.Generator\DependencyInjection.MvvmView.Generator.csproj"  OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
 	</ItemGroup>
 
 </Project>

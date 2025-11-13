@@ -13,7 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using WpfTestApp.Views;
 namespace WpfTestApp.ViewModels
 {
-    internal partial class MainWindowViewModel: ObservableObject
+    [ViewBindVm(ServiceLifetime.Singleton,typeof(MainWindow),"aa")]
+    public partial class MainWindowViewModel: ObservableObject
     {
         public MainWindowViewModel(IServiceProvider serviceProvider)
         {
@@ -29,14 +30,14 @@ namespace WpfTestApp.ViewModels
         /// 标题
         /// </summary>
         [ObservableProperty]
-        string title;
+        public partial string Title { get; set; }
 
         [RelayCommand]
         void Loadoo(object par)
         {
             
-            var view = Ioc.Default.GetService<TestControlA>();
-            Ioc.Default.GetService<IRegionManager>().AddToRegion("user", view);
+           // var view = Ioc.Default.GetService<TestControlA>();
+           // Ioc.Default.GetService<IRegionManager>().AddToRegion("user", view);
             //ServiceProvider.Default.GetService<IRegionManager>().Regions["user"].Activate(view);
         }
     }

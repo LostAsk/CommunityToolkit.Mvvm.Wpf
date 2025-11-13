@@ -1,12 +1,11 @@
-﻿using CommunityToolkit.Mvvm.DependencyInjection.DryIoc;
-using System.Configuration;
-using System.Data;
-using System.Windows;
+﻿using CommunityToolkit.Mvvm;
 using CommunityToolkit.Mvvm.DependencyInjection;
-using DryIoc;
-using WpfTestApp.Views;
+using CommunityToolkit.Mvvm.DependencyInjection.Microsoft;
+using CommunityToolkit.Mvvm.Wpf.Microsoft;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Windows;
+using WpfTestApp.Views;
 namespace WpfTestApp
 {
     /// <summary>
@@ -21,8 +20,24 @@ namespace WpfTestApp
             boot.Run();
         }
 
-        class MockBootstrapper : DryIocInitialzation
+        class MockBootstrapper : MicrosoftIocInitialzation
         {
+            protected override void ConfigureViewModelLocator()
+            {
+                VMLocationProvider.Instance.SetServiceProvider(Ioc.Default);
+                VMLocationProvider.Instance
+                    .SetDefaultViewModelFactory(ServiceCollectionViewBindVmExtensions.UseWpfTestAppDefaultViewModelFatory)
+                    .SetDefaultViewFactory(ServiceCollectionViewBindVmExtensions.UseWpfTestAppDefaultViewFatory)
+                    ;
+
+                ViewModelLocationProvider.SetDefaultViewModelFactory((view, type) =>
+                {
+                    return ServiceCollectionViewBindVmExtensions.UseWpfTestAppDefaultViewModelFatory(view, Ioc.Default);
+                });
+
+               
+            }
+
             protected override void ConfigService(IServiceProvider serviceProvider)
             {
 
@@ -34,10 +49,9 @@ namespace WpfTestApp
                 return mainwindow;
             }
 
-            protected override void RegisterTypes(DryIoc.IContainer serviceDescriptors)
+            protected override void RegisterTypes(IServiceCollection serviceDescriptors)
             {
-                serviceDescriptors.Register<TestControlA>(Reuse.Transient, serviceKey: "www");
-                serviceDescriptors.BuilderViewAndViewModelByDryIoc(typeof(App).Assembly);
+                serviceDescriptors.AddWpfTestAppViewAndViewModel();
             }
         }
     }
