@@ -21,6 +21,14 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <ContentControl tookit:RegionManager.RegionContext="阿斯蒂芬" tookit:RegionManager.RegionName="user" />
+        <ContentControl
+            Grid.Row="1"
+            tookit:RegionManager.RegionContext="bb"
+            tookit:RegionManager.RegionName="aa" />
     </Grid>
 </Window>

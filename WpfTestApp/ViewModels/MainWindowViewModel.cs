@@ -36,9 +36,11 @@ namespace WpfTestApp.ViewModels
         void Loadoo(object par)
         {
             
-           // var view = Ioc.Default.GetService<TestControlA>();
-           // Ioc.Default.GetService<IRegionManager>().AddToRegion("user", view);
-            //ServiceProvider.Default.GetService<IRegionManager>().Regions["user"].Activate(view);
+            var view = Ioc.Default.GetService<IRegionManager>();
+            var list = view.Regions;
+            // Ioc.Default.GetService<IRegionManager>().AddToRegion("user", view);
+            // ServiceProvider.Default.GetService<IRegionManager>().Regions["user"].Activate(view);
+
         }
     }
 }

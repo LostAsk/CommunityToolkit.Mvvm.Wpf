@@ -72,10 +72,10 @@ namespace CommunityToolkit.Mvvm.DependencyInjection
             serviceDescriptors.TryAddTransient<IRegionNavigationJournalEntry, RegionNavigationJournalEntry>();
             serviceDescriptors.TryAddTransient<IRegionNavigationJournal, RegionNavigationJournal>();
             serviceDescriptors.TryAddTransient<IRegionNavigationService, RegionNavigationService>();
-            serviceDescriptors.TryAddSingleton<DelayedRegionCreationBehavior>();
-            serviceDescriptors.TryAddSingleton<SelectorRegionAdapter>();
-            serviceDescriptors.TryAddSingleton<ItemsControlRegionAdapter>();
-            serviceDescriptors.TryAddSingleton<ContentControlRegionAdapter>();
+            serviceDescriptors.TryAddTransient<DelayedRegionCreationBehavior>();
+            serviceDescriptors.TryAddTransient<SelectorRegionAdapter>();
+            serviceDescriptors.TryAddTransient<ItemsControlRegionAdapter>();
+            serviceDescriptors.TryAddTransient<ContentControlRegionAdapter>();
             serviceDescriptors.AddDialog();
             ModuleManager = new ModuleManager();
             //添加模块管理器

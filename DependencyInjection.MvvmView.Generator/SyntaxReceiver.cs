@@ -16,6 +16,7 @@ namespace DependencyInjection.MvvmView.Generator
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
+
             // 声明 类node
             if (syntaxNode is ClassDeclarationSyntax classSyntax)
             {

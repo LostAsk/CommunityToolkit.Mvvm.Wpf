@@ -81,7 +81,7 @@ namespace DependencyInjection.MvvmView.Generator
                     //瞬时
                     builder.AppendLine(PadSpace(12, $@"services.TryAdd(ServiceDescriptor.Describe(typeof({view}),typeof({view}),ServiceLifetime.Transient));"));
                     
-                    builder.AppendLine(PadSpace(12, $"services.TryAdd(ServiceDescriptor.DescribeKeyed(typeof({view}),nameof({view}), typeof({view}), ServiceLifetime.Transient));"));
+                    builder.AppendLine(PadSpace(12, $"services.TryAdd(ServiceDescriptor.DescribeKeyed(typeof(object),nameof({view}), typeof({view}), ServiceLifetime.Transient));"));
                     builder.AppendLine(PadSpace(12, $"VMLocationProvider.Instance.AddTypeMapping(nameof({view}),typeof({view}));"));
                     if (!string.IsNullOrWhiteSpace(descriptor.Key))
                     {
